@@ -15,7 +15,8 @@ class SaleOrder(models.Model):
         if 'user_id' in vals and vals['user_id'] != self.user_id:
             self.partner_id.message_post(body='Your Salesperson have been changed from %s to %s' % (self.user_id.name, self.env['res.partner'].browse(vals['user_id']).name))
         return super(SaleOrder, self).write(vals)
-
+        
+    @api.model
     def create(self, vals):
         self.partner_id.message_post(
             body=f"<a href='#' data-oe-model='res.partner' data-oe-id='{self.id}'>{self.name}</a> Sale Order Created")
